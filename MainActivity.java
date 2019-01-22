@@ -20,10 +20,10 @@ public class MainActivity extends Activity {
         myi = (TextView) findViewById(R.id.textview);
     }
 
-    Handler handler = new Handler() {
+    Handler handler = new Handler() {   // 쓰레드의 handler만이 메인쓰레드의 UI에 접근하여 수정할 수 있다.
         @Override
         public void handleMessage(Message msg) {
-            updateThread();
+            updateThread(); //UI업데이트 메소드 호출.
         }
     };
 
@@ -34,8 +34,8 @@ public class MainActivity extends Activity {
             public void run() {
                 while (true) {
                     try {
-                        handler.sendMessage(handler.obtainMessage());
-                        Thread.sleep(1000);
+                        handler.sendMessage(handler.obtainMessage()); //handler에게 메시지를 보내 UI업데이트를 하게 함.
+                        Thread.sleep(1000); //1초에 한번 업데이트.
                     } catch (Throwable t) {
                     }
                 }
